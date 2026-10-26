@@ -1,0 +1,21 @@
+MACHINE ??= "jetson-orin-nano-devkit"
+DISTRO ?= "axiom"
+SDKMACHINE ?= "x86_64"
+PACKAGE_CLASSES ?= "package_ipk"
+EXTRA_IMAGE_FEATURES ?= "ssh-server-openssh"
+USER_CLASSES ?= "buildstats"
+PATCHRESOLVE = "noop"
+CONF_VERSION = "2"
+
+DL_DIR ?= "${TOPDIR}/../downloads"
+SSTATE_DIR ?= "${TOPDIR}/../sstate-cache"
+BB_HASHSERVE_DB_DIR = "${SSTATE_DIR}"
+BB_NUMBER_THREADS ?= "4"
+PARALLEL_MAKE ?= "-j4"
+
+BB_DISKMON_DIRS = " \
+    STOPTASKS,${TMPDIR},5G,100K \
+    STOPTASKS,${DL_DIR},5G,100K \
+    HALT,${TMPDIR},1G,1K \
+    HALT,${DL_DIR},1G,1K \
+"
