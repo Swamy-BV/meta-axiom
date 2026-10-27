@@ -11,9 +11,8 @@ flowchart TB
         BOOT["NVIDIA kernel / DTB / EFI / recovery / reserved"]
         A["APP · rootfs A · 8 GiB"]
         B["APP_b · rootfs B · 8 GiB"]
-        P["persist · shared state · 512 MiB"]
-        D["UDA · shared data · remaining capacity"]
-        BOOT --- A --- B --- P --- D
+        D["UDA · persistent state / overlay / models / recordings<br/>Remaining capacity"]
+        BOOT --- A --- B --- D
     end
     Q ~~~ BOOT
 ```
