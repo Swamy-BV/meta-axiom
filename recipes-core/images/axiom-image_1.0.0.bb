@@ -12,6 +12,7 @@ IMAGE_ROOTFS_MAXSIZE:jetson-orin-nano-devkit = "${@int(d.getVar('ROOTFSPART_SIZE
 IMAGE_FEATURES:remove = "splash"
 IMAGE_FEATURES += "ssh-server-openssh"
 IMAGE_INSTALL:append = " \
+    axiom-storage \
     ros-base \
     rmw-cyclonedds-cpp \
     swupdate \

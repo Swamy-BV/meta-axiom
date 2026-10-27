@@ -1,0 +1,4 @@
+
+# Shared filesystems: initialize only when empty, and preserve across A/B updates.
+PARTLABEL=persist /persist ext4 defaults,noatime,nodev,nosuid,x-systemd.makefs 0 2
+PARTLABEL=UDA /data ext4 defaults,noatime,nodev,nosuid,x-systemd.makefs,x-systemd.growfs 0 2

@@ -27,6 +27,13 @@ if findmnt -rn -S "$inactive_device" >/dev/null; then
     exit 1
 fi
 mountpoint -q /boot/efi
+[ -b /dev/disk/by-partlabel/persist ] && [ -b /dev/disk/by-partlabel/UDA ]
+mountpoint -q /persist
+mountpoint -q /data
+[ "$(findmnt -n -o FSTYPE /var/lib)" = overlay ] || {
+    echo "Persistent var/lib overlay is not mounted; refusing update." >&2
+    exit 1
+}
 
 # The bundle uses this mode to reject a manually selected, incorrect install set.
 if [ "$#" -eq 1 ]; then

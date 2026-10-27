@@ -13,6 +13,7 @@ COMPATIBLE_MACHINE = "^jetson-orin-nano-devkit$"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 RDEPENDS:${PN} = " \
+    axiom-storage \
     coreutils \
     efivar \
     setup-nv-boot-control-service \

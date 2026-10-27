@@ -11,10 +11,11 @@ flowchart TB
         BOOT["NVIDIA kernel / DTB / EFI / recovery / reserved"]
         A["APP · rootfs A · 8 GiB"]
         B["APP_b · rootfs B · 8 GiB"]
-        D["UDA · persistent state / overlay / models / recordings<br/>Remaining capacity"]
-        BOOT --- A --- B --- D
+        P["persist · shared var/lib overlay · 512 MiB"]
+        D["UDA · models / recordings · remaining capacity"]
+        BOOT --- A --- B --- P --- D
     end
     Q ~~~ BOOT
 ```
 
-Hardware validation, persistent mounts and overlays pending.
+Hardware validation pending.

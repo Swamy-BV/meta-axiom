@@ -1,4 +1,5 @@
 software = {
+    // Shared persist and UDA filesystems are preserved; only system slots are updated.
     version = "@@PV@@";
     bootloader_transaction_marker = false;
     bootloader_state_marker = false;

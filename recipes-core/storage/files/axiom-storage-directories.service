@@ -1,0 +1,10 @@
+[Unit]
+Description=Create persistent overlay and application directories
+DefaultDependencies=no
+RequiresMountsFor=/persist /data
+Before=var-lib.mount local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemd-tmpfiles --create /usr/lib/tmpfiles.d/axiom-storage.conf
+RemainAfterExit=yes
