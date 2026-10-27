@@ -1,0 +1,109 @@
+software = {
+    version = "@@PV@@";
+    bootloader_transaction_marker = false;
+    bootloader_state_marker = false;
+
+    @@MACHINE@@ = {
+        hardware-compatibility = [ "1.0.0" ];
+        system = {
+            slot_a = {
+                images = (
+                    {
+                        filename = "@@AXIOM_UPDATE_ROOTFS@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_ROOTFS@@)";
+                        type = "raw";
+                        device = "/dev/disk/by-partlabel/APP_b";
+                        compressed = "zlib";
+                        installed-directly = true;
+                    },
+                    {
+                        filename = "@@AXIOM_UPDATE_KERNEL@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_KERNEL@@)";
+                        type = "raw";
+                        device = "/dev/disk/by-partlabel/B_kernel";
+                        installed-directly = true;
+                    },
+                    {
+                        filename = "@@AXIOM_UPDATE_DTB@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_DTB@@)";
+                        type = "raw";
+                        device = "/dev/disk/by-partlabel/B_kernel-dtb";
+                        installed-directly = true;
+                    },
+                    {
+                        filename = "@@AXIOM_UPDATE_ESP@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_ESP@@)";
+                        type = "archive";
+                        path = "/boot/efi";
+                        installed-directly = true;
+                    }
+                );
+                files = (
+                    {
+                        filename = "tegra-bl.cap";
+                        sha256 = "$swupdate_get_sha256(tegra-bl.cap)";
+                        path = "/run/swupdate/axiom-tegra-bl.cap";
+                        properties = { atomic-install = "true"; };
+                    }
+                );
+                scripts = (
+                    {
+                        filename = "axiom-update.sh";
+                        sha256 = "$swupdate_get_sha256(axiom-update.sh)";
+                        type = "shellscript";
+                        data = "slot_a";
+                    }
+                );
+            };
+            slot_b = {
+                images = (
+                    {
+                        filename = "@@AXIOM_UPDATE_ROOTFS@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_ROOTFS@@)";
+                        type = "raw";
+                        device = "/dev/disk/by-partlabel/APP";
+                        compressed = "zlib";
+                        installed-directly = true;
+                    },
+                    {
+                        filename = "@@AXIOM_UPDATE_KERNEL@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_KERNEL@@)";
+                        type = "raw";
+                        device = "/dev/disk/by-partlabel/A_kernel";
+                        installed-directly = true;
+                    },
+                    {
+                        filename = "@@AXIOM_UPDATE_DTB@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_DTB@@)";
+                        type = "raw";
+                        device = "/dev/disk/by-partlabel/A_kernel-dtb";
+                        installed-directly = true;
+                    },
+                    {
+                        filename = "@@AXIOM_UPDATE_ESP@@";
+                        sha256 = "$swupdate_get_sha256(@@AXIOM_UPDATE_ESP@@)";
+                        type = "archive";
+                        path = "/boot/efi";
+                        installed-directly = true;
+                    }
+                );
+                files = (
+                    {
+                        filename = "tegra-bl.cap";
+                        sha256 = "$swupdate_get_sha256(tegra-bl.cap)";
+                        path = "/run/swupdate/axiom-tegra-bl.cap";
+                        properties = { atomic-install = "true"; };
+                    }
+                );
+                scripts = (
+                    {
+                        filename = "axiom-update.sh";
+                        sha256 = "$swupdate_get_sha256(axiom-update.sh)";
+                        type = "shellscript";
+                        data = "slot_b";
+                    }
+                );
+            };
+        };
+    };
+};

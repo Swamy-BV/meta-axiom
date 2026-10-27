@@ -1,0 +1,1 @@
+SWUPDATE_ARGS="${SWUPDATE_ARGS} -f /run/swupdate/swupdate.cfg"

@@ -18,4 +18,4 @@ flowchart TB
     Q ~~~ BOOT
 ```
 
-Layout defined; hardware validation, persistent mounts, overlays and SWUpdate bundles pending.
+Hardware validation, persistent mounts and overlays pending.

@@ -1,0 +1,44 @@
+#!/bin/sh
+# Select from NVIDIA boot control; checking the mounted root is a safety guard.
+set -eu
+
+root_slot=$(nvbootctrl -t rootfs get-current-slot)
+firmware_slot=$(nvbootctrl get-current-slot)
+[ "$root_slot" = "$firmware_slot" ] || {
+    echo "Firmware and rootfs slots disagree; refusing update." >&2
+    exit 1
+}
+
+case "$root_slot" in
+    0) selection=slot_a; current=APP; inactive=APP_b ;;
+    1) selection=slot_b; current=APP_b; inactive=APP ;;
+    *) echo "Invalid NVIDIA boot slot." >&2; exit 1 ;;
+esac
+
+current_device=/dev/disk/by-partlabel/$current
+inactive_device=/dev/disk/by-partlabel/$inactive
+[ -b "$current_device" ] && [ -b "$inactive_device" ]
+[ "$(findmnt -n -o MAJ:MIN /)" = "$(lsblk -dnro MAJ:MIN "$current_device")" ] || {
+    echo "Mounted root does not match NVIDIA boot control." >&2
+    exit 1
+}
+if findmnt -rn -S "$inactive_device" >/dev/null; then
+    echo "Inactive rootfs is mounted; refusing update." >&2
+    exit 1
+fi
+mountpoint -q /boot/efi
+
+# The bundle uses this mode to reject a manually selected, incorrect install set.
+if [ "$#" -eq 1 ]; then
+    [ "$1" = "$selection" ] || {
+        echo "Update selection does not match the running slot." >&2
+        exit 1
+    }
+    exit 0
+fi
+[ "$#" -eq 0 ]
+
+umask 077
+mkdir -p /run/swupdate
+printf 'globals = { select = "system,%s"; };\n' "$selection" > /run/swupdate/swupdate.cfg.tmp
+mv /run/swupdate/swupdate.cfg.tmp /run/swupdate/swupdate.cfg
