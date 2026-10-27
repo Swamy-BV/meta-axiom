@@ -2,20 +2,7 @@
 
 Embedded AI and robotics, built with Yocto.
 
-```sh
-source axiom-setup.sh -b build
-bitbake axiom-image
-```
-
-Run from the workspace root after syncing `jetson-manifest`.
-
-| Location | Contents |
-|---|---|
-| `conf/` | Distribution and build defaults |
-| `recipes-core/images/` | `axiom-image` recipe |
-| `recipes-bsp/tegra-binaries/files/` | Partition-layout XML |
-| `tools/` | Setup script |
-| `build/tmp/deploy/images/jetson-orin-nano-devkit/` | Generated images, relative to workspace root |
+For checkout and build instructions, see [jetson-manifest](https://github.com/Swamy-BV/jetson-manifest).
 
 ```mermaid
 flowchart TB
