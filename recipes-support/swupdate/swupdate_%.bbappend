@@ -1,5 +1,5 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-SRC_URI += "file://axiom.cfg"
+SRC_URI += "file://axiom-handlers.cfg"
 
 # Upstream derives dependencies from fragments while parsing the recipe.
 python () {

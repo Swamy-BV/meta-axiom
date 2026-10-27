@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 SRC_URI = " \
     file://axiom-swupdate-setup \
     file://20-axiom-args \
-    file://axiom.conf \
+    file://swupdate-service.conf \
 "
 
 S = "${UNPACKDIR}"
@@ -29,7 +29,7 @@ do_install() {
     install -m 0644 ${S}/20-axiom-args ${D}${libdir}/swupdate/conf.d/
     install -d ${D}${systemd_system_unitdir}/swupdate.service.d
     sed -e 's,@LIBEXECDIR@,${libexecdir},g' \
-        ${S}/axiom.conf > ${D}${systemd_system_unitdir}/swupdate.service.d/axiom.conf
+        ${S}/swupdate-service.conf > ${D}${systemd_system_unitdir}/swupdate.service.d/axiom.conf
     install -d ${D}${sysconfdir}
     printf '%s 1.0.0\n' '${MACHINE}' > ${D}${sysconfdir}/hwrevision
 }
