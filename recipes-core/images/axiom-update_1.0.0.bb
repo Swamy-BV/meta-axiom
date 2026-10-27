@@ -20,12 +20,13 @@ AXIOM_UPDATE_ESP = "tegra-espimage-${MACHINE}.tar.gz"
 SWUPDATE_IMAGES = " \
     ${AXIOM_UPDATE_ROOTFS} \
     ${AXIOM_UPDATE_KERNEL} \
-    ${AXIOM_UPDATE_DTB} \
+    devicetree/${AXIOM_UPDATE_DTB} \
     ${AXIOM_UPDATE_ESP} \
     tegra-bl.cap \
 "
 
 do_swuimage[depends] += " \
     ${INITRD_IMAGE}:do_image_complete \
+    nvidia-kernel-oot-dtb:do_deploy \
     tegra-uefi-capsules:do_deploy \
 "
