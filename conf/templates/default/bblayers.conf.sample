@@ -7,5 +7,9 @@ BBLAYERS = " \
     ##OEROOT##/../meta-openembedded/meta-python \
     ##OEROOT##/../meta-openembedded/meta-networking \
     ##OEROOT##/../meta-tegra \
+    ##OEROOT##/../meta-ros/meta-ros-common \
+    ##OEROOT##/../meta-ros/meta-ros2 \
+    ##OEROOT##/../meta-ros/meta-ros2-jazzy \
+    ##OEROOT##/../meta-swupdate \
     ##OEROOT##/../meta-axiom \
 "
