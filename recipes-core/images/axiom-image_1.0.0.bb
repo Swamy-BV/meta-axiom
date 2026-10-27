@@ -1,4 +1,5 @@
 require recipes-core/images/core-image-base.bb
+require conf/distro/include/axiom-storage.inc
 
 SUMMARY = "Axiom Linux image with ROS 2"
 DESCRIPTION = "Headless Linux with ROS 2 Jazzy and SWUpdate for Axiom"
